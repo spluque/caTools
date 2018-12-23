@@ -1,0 +1,150 @@
+Changes in version 1.13:
+
+   o Removed Rd cross-references that are no longer available on CRAN.
+
+   o Updated caTools-package.rD with correct licensing information.
+
+   o Updated DESCRIPTION file to reflect new maintainer.
+
+Changed in version 1.12:
+
+   o Small correction to GifTools.cpp sent by Murray Stokely to allow
+     compilation with clang rather than gcc compiler.
+
+   o Corrections to runmean documentation sent by Jon Wade.
+
+   o Fixed bug in LogitBoost.R which was causing crashes when all values of
+     a column were identical.
+
+   o Added comments to runfunc.c
+
+Changes in version 1.11:
+
+   o Changed EndRule function used by all run... functions to fix handling
+     of different endrules when for non-central aligments and for k=2.
+
+   o Fully retired runsum.exact, which was not working for a while, use
+     runmean with "exact" option instead.
+
+   o Removed references to several no-longer-existing packages and
+     functions from Rd files.
+
+   o Changed documentation of predict.LogitBoost to follow S3 mathod syntax.
+
+   o renamed sum.exact and cumsum.exact to sumexact and cumsumexact to
+     avoid package build errors. those functions were confused with S3
+     mathods.
+
+Changes in version 1.10:
+
+   o Fixed runmax to handle correctly negative numbers.
+
+   o Added align argument to moving window statistics functions: runmean,
+     runmax, runmin, runsd, runmad and runquintile functions. It allows
+     left and right alligned window in addition to centered window.
+
+   o Added support for 2D arrays to be passed to moving window statistics
+     functions: runmean, runmax, runmin, runsd, runmad and runquintile
+     functions.  If input array is a 2D matrix than the operations are
+     performed for each column separately. This change was mostly handled
+     by EndRule function. Speed for 2D array input is expected to be slower
+     than for vectors since calculations for beggining and end of arrays if
+     handled in R instead of C. is expected to be.
+
+   o Changed "if(!require(LIB)) warning(..." to ""library(LIB)" to get rid
+     or warnings by R CMD CHECK.
+
+Changes in version 1.9:
+
+   o No code changes.
+
+   o Corrected inconsistent licence information.
+
+Changes in version 1.8:
+
+   o Major changes to moving window statistics functions:
+     - Use fast C code to process array edges.
+     - Added suport for NaN's.
+     - Added suport for even size windows.
+     - Split help file into 5 new help files.
+     - Added much more examples and self-tests.
+
+   o Followed Prof. Brian Ripley request to move R header files out of
+     extern "C" blocks in C++ files.
+
+   o Changed licence to GPL.
+
+Changes in version 1.7:
+
+   o Added 4th variable in 'rgb' function (line 174).
+
+Changes in version 1.6:
+
+   o Functions raw2bin and bin2raw were retired, since they parallel new
+     (as of R-2.2.0) capabilities of readBin and writeBin.
+
+   o Bug in plotting in colAUC function was fixed, after it was reported by
+     Tom Wright.
+
+   o Documentation of colAUC was updated and some examples modified in
+     order to reduce dependency on external libraries.
+
+   o GifTools.cc was split into GifTools.cpp and GifTools.cc. The first
+     file contains GIF encoding/decoding algorithm and second is a shell
+     that comunicates with R.
+
+Changes in version 1.5:
+
+   o Several new examples.
+
+   o Functions raw2bin and bin2raw still work but return warnings. They
+     will be retired in the next version, since they parallel new
+     capabilities of readBin and writeBin.
+
+   o Argument 'col' of function 'write.gif' was changed to allow several
+     other ways to define a color palette.
+
+   o base64encode and base64decode now use readBin and writeBin instead
+     raw2bin and bin2raw.
+
+Changes in version 1.4:
+
+   o A small change in 1.3 that used call to 'max' instead of 'pmax' made
+     'colAUC' return wrong numbers in case of multi-feature data.
+
+Changes in version 1.3:
+
+   o Changes to colAUC function. Parameters: plotROC and alg were added.
+     Parameter 'p.val' was removed, since it gave wrong results in case of
+     data with ties. And it was too complicated to fix.
+
+   o Added much better testing of "colAUC" in Example section.
+
+Changes in version 1.2:
+
+   o Minor changes to .Rd files to fix problems found by new
+     'checkDocFiles' function.
+
+Changes in version 1.1:
+
+   o read.GIF and write.GIF files were added.
+
+   o bin2raw and raw2bin files: much faster raw to numeric conversion.
+
+   o sum.exact, cumsum.exact and runsum.exact functions were added for
+     under-flow safe addition.
+
+Changes in version 1.0:
+
+   o bin2raw and raw2bin files: endian variable was added.
+
+   o raw2bin: additional error checking.
+
+   o runmean, runmax, runmin, runquantile, runmad: additional error
+     checking and corrected error checking.
+
+   o EndRule: added error checking.
+
+   o runmean, runmax, runmin: additional parameter "alg" was added.
+
+   o runmean - new C code can survive round-off errors.

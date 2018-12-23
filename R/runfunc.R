@@ -20,13 +20,13 @@ runmean = function(x, k, alg=c("C", "R", "fast", "exact"),
   k2 = k%/%2
 
   if (alg=="exact") {
-    y <- .C("runmean_exact", x, y = double(n) , as.integer(n), as.integer(k),
+    y <- .C("run_mean_exact", x, y = double(n) , as.integer(n), as.integer(k),
             NAOK=TRUE, PACKAGE="caTools")$y
   } else if (alg=="C") {
-    y <- .C("runmean", as.double(x), y = double(n), as.integer(n), as.integer(k),
+    y <- .C("run_mean", as.double(x), y = double(n), as.integer(n), as.integer(k),
             NAOK=TRUE, PACKAGE="caTools")$y
   } else if (alg=="fast") {
-    y <- .C("runmean_lite", as.double(x), y = double(n), as.integer(n), as.integer(k),
+    y <- .C("run_mean_lite", as.double(x), y = double(n), as.integer(n), as.integer(k),
             NAOK=TRUE, PACKAGE="caTools")$y
   } else {     # the similar algorithm implemented in R language
       y = double(n)
@@ -56,7 +56,7 @@ runmin = function(x, k, alg=c("C", "R"),
   if (k >n) k = n
 
   if (alg=="C") {
-    y <- .C("runmin", as.double(x), y = double(n), as.integer(n), as.integer(k),
+    y <- .C("run_min", as.double(x), y = double(n), as.integer(n), as.integer(k),
             NAOK=TRUE, PACKAGE="caTools")$y
   } else { # the similar algorithm implemented in R language
       y = double(n)
@@ -95,7 +95,7 @@ runmax = function(x, k, alg=c("C", "R"),
   y = double(n)
 
   if (alg=="C") {
-    y <- .C("runmax", as.double(x), y = double(n) , as.integer(n), as.integer(k),
+    y <- .C("run_max", as.double(x), y = double(n) , as.integer(n), as.integer(k),
             NAOK=TRUE, PACKAGE="caTools")$y
   } else { # the same algorithm implemented in R language
       y = double(n)
@@ -138,7 +138,7 @@ runquantile = function(x, k, probs, type=7,
     warning("'type' outside allowed range [1,9]; changing 'type' to ", type<-7)
 
   y = double(n*np)
-  y <- .C("runquantile", as.double(x), y = y , as.integer(n), as.integer(k),
+  y <- .C("run_quantile", as.double(x), y = y , as.integer(n), as.integer(k),
           as.double(probs), as.integer(np),as.integer(type),
           NAOK=TRUE, PACKAGE="caTools")$y
   dim(y) =  c(n,np)
@@ -168,7 +168,7 @@ runmad = function(x, k, center = runmed(x,k), constant = 1.4826,
   n = length(x)
   if (k<3) stop("'k' must be larger than 2")
   if (k>n) k = n
-  y <- .C("runmad", as.double(x), as.double(center), y = double(n),
+  y <- .C("run_mad", as.double(x), as.double(center), y = double(n),
           as.integer(n), as.integer(k), NAOK=TRUE, PACKAGE="caTools")$y
   y = EndRule(x, y, k, dimx, endrule, align, mad, constant=1, na.rm=TRUE)
   return(constant*y)
@@ -187,7 +187,7 @@ runsd = function(x, k, center = runmean(x,k),
   n = length(x)
   if (k<3) stop("'k' must be larger than 2")
   if (k>n) k = n
-  y <- .C("runsd", as.double(x), as.double(center), y = double(n),
+  y <- .C("run_sd", as.double(x), as.double(center), y = double(n),
           as.integer(n), as.integer(k), NAOK=TRUE, PACKAGE="caTools")$y
   y = EndRule(x, y, k, dimx, endrule, align, sd, na.rm=TRUE)
   return(y)
@@ -271,4 +271,3 @@ EndRule = function(x, y, k, dimx,
   if (yIsVec) y = as.vector(y);
   return(y)
 }
-

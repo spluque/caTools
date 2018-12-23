@@ -1,4 +1,4 @@
-useDynLib("caTools")
+useDynLib("caTools", .registration=True)
 
 import(bitops)
 
@@ -8,6 +8,26 @@ importFrom("stats", "mad", "quantile", "runif", "runmed", "sd")
 importFrom("utils", "download.file", "read.table")
 
 # Export all names
-exportPattern(".")
+export(base64encode,
+       base64decode,
+       colAUC,
+       combs,
+       write.ENVI,
+       read.ENVI,
+       write.gif,
+       read.gif,
+       LogitBoost,
+       predict.LogitBoost,
+       runmean,
+       runmin,
+       runmax,
+       runquantile,
+       runmad,
+       runsd,
+       EndRule,
+       sample.split,
+       sumexact,
+       cumsumexact,
+       trapz)
 
 S3method("predict", "LogitBoost")

@@ -1,0 +1,8 @@
+^\.cvsignore$
+^\.gitignore$
+^\.travis\.yml$
+^\+\+psvn.*
+EXAMPLES.*
+^TODO$
+^.AppleDouble$
+^vignettes/figure$
